@@ -38,11 +38,8 @@ class BusViewModel: ObservableObject {
                 throw URLError(.badServerResponse)
             }
             
-            // Decode raw Bus models from JSON
             let decodedBuses = try JSONDecoder().decode([Bus].self, from: data)
             
-            // For each new bus from the server,
-            // either update an existing animated bus or add a new one
             DispatchQueue.main.async {
                 self.updateAnimatedBuses(with: decodedBuses)
             }
@@ -71,8 +68,6 @@ class BusViewModel: ObservableObject {
             }
         }
         
-        // Optionally remove any buses that no longer exist in newBuses,
-        // if your server might remove buses. Otherwise, skip this.
         let newIDs = Set(newBuses.map { $0.id })
         animatedBuses.removeAll { !newIDs.contains($0.id) }
     }
