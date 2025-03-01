@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-class HttpClient {
+final class HttpClient: Sendable {
     
     enum HttpError: Error, LocalizedError {
         case invalidURL
         case noData
-        case decodingError
+        case decodingError(DecodingError)
         case unauthorized
         case notFound
         case serverError(statusCode: Int)
@@ -27,8 +27,9 @@ class HttpClient {
                 return "The URL provided is invalid."
             case .noData:
                 return "No data was returned from the request."
-            case .decodingError:
-                return "Failed to decode the response."
+            case .decodingError(let decodingError):
+                return "Failed to decode the response.\n\(decodingError.extendedDescription)"
+                
             case .unauthorized:
                 return "Unauthorized access. Please check your credentials."
             case .notFound:
@@ -62,7 +63,7 @@ class HttpClient {
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        let userAgent = self.constructUserAgent()
+        let userAgent = await self.constructUserAgent()
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
         
         if let body = body {
@@ -76,50 +77,67 @@ class HttpClient {
                 throw HttpError.unknown(NSError(domain: "HTTPResponse", code: 0, userInfo: nil))
             }
             
+            // Handle status codes
             switch httpResponse.statusCode {
             case 200..<300:
-                break // Success, proceed with decoding
-                
+                break
             case 401:
                 throw HttpError.unauthorized
-                
             case 404:
                 throw HttpError.notFound
-                
             case 400..<500:
                 throw HttpError.clientError(statusCode: httpResponse.statusCode)
-                
             case 500..<600:
                 throw HttpError.serverError(statusCode: httpResponse.statusCode)
-                
             default:
-                throw HttpError.unknown(NSError(domain: "HTTPResponse", code: httpResponse.statusCode, userInfo: nil))
+                throw HttpError.unknown(NSError(domain: "HTTPResponse",
+                                                code: httpResponse.statusCode,
+                                                userInfo: nil))
             }
             
             let decoder = JSONDecoder()
             do {
                 return try decoder.decode(T.self, from: data)
+            } catch let error as DecodingError {
+                throw HttpError.decodingError(error)
             } catch {
-                throw HttpError.decodingError
+                throw HttpError.unknown(error)
             }
-            
         } catch let error as HttpError {
             throw error
-            
         } catch {
             throw HttpError.unknown(error)
         }
     }
     
-    private func constructUserAgent() -> String {
+    private func constructUserAgent() async -> String {
         let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? "UnknownApp"
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "UnknownVersion"
         let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "UnknownBuild"
-        let systemName = UIDevice.current.systemName
-        let systemVersion = UIDevice.current.systemVersion
-        let deviceModel = UIDevice.current.model
+        let systemName = await UIDevice.current.systemName
+        let systemVersion = await UIDevice.current.systemVersion
+        let deviceModel = await UIDevice.current.model
         
         let userAgent = "\(appName)/\(appVersion) (\(appBuild)); \(deviceModel); \(systemName) \(systemVersion)"
         return userAgent
+    }
+}
+
+extension DecodingError {
+    var extendedDescription: String {
+        switch self {
+        case .dataCorrupted(let context):
+            return "[Data Corrupted] \(context.debugDescription)\nCoding Path: \(context.codingPath.map { $0.stringValue }.joined(separator: "->"))"
+        case .keyNotFound(let key, let context):
+            return "[Key Not Found] Key '\(key.stringValue)' not found: \(context.debugDescription)\nCoding Path: \(context.codingPath.map { $0.stringValue }.joined(separator: "->"))"
+            
+        case .valueNotFound(let type, let context):
+            return "[Value Not Found] Value of type '\(type)' not found: \(context.debugDescription)\nCoding Path: \(context.codingPath.map { $0.stringValue }.joined(separator: "->"))"
+            
+        case .typeMismatch(let type, let context):
+            return "[Type Mismatch] Type '\(type)' mismatch: \(context.debugDescription)\nCoding Path: \(context.codingPath.map { $0.stringValue }.joined(separator: "->"))"
+        @unknown default:
+            return "[Unknown DecodingError] No further info."
+        }
     }
 }
