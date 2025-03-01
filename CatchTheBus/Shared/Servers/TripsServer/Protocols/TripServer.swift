@@ -8,6 +8,6 @@
 import Foundation
 
 protocol TripServer: Sendable, ObservableObject {
-    func fetchTrips() async throws
+    func fetchTrips(fromDate: Date, toDate: Date) async throws 
     func fetchOneTrip(withID id: String) async throws -> AppTripModel?
 }
