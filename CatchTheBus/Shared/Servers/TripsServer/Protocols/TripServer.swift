@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol TripServer {
-    func fetchTrips() async throws -> MultipleTripInfoDTO
-    func fetchOneTrip(withID id: String) async throws -> PublicTripModel?
+protocol TripServer: Sendable, ObservableObject {
+    func fetchTrips() async throws
+    func fetchOneTrip(withID id: String) async throws -> AppTripModel?
 }
