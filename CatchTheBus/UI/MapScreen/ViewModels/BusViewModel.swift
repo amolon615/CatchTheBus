@@ -9,38 +9,95 @@ import MapKit
 import Combine
 
 class BusViewModel: ObservableObject {
-    @Published var buses: [Bus] = []
+    // Instead of raw Bus objects, store animated ones:
+    @Published var animatedBuses: [AnimatedBus] = []
     
     private var cancellable: AnyCancellable?
     
     init() {
-        fetchBuses()
-        cancellable = Timer.publish(every: 1, on: .main, in: .common)
+        // Repeatedly fetch new data
+        cancellable = Timer.publish(every: 1, // fetch every 5 seconds (or 1s if you really want)
+                                   on: .main,
+                                   in: .common)
             .autoconnect()
             .sink { [weak self] _ in
-                self?.fetchBuses()
+                Task {
+                    await self?.fetchBuses()
+                }
             }
     }
     
-    func fetchBuses() {
+    func fetchBuses() async {
         guard let url = URL(string: "https://api.ember.to/v1/vehicles/") else { return }
         
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("Error fetching buses: \(error)")
-                return
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            
+            guard let httpResponse = response as? HTTPURLResponse,
+                  httpResponse.statusCode == 200 else {
+                throw URLError(.badServerResponse)
             }
-            guard let data = data else { return }
-            do {
-                let decodedBuses = try JSONDecoder().decode([Bus].self, from: data)
-                DispatchQueue.main.async {
-                    withAnimation {
-                        self.buses = decodedBuses
-                    }
-                }
-            } catch {
-                print("Decoding error: \(error)")
+            
+            // Decode raw Bus models from JSON
+            let decodedBuses = try JSONDecoder().decode([Bus].self, from: data)
+            
+            // For each new bus from the server,
+            // either update an existing animated bus or add a new one
+            DispatchQueue.main.async {
+                self.updateAnimatedBuses(with: decodedBuses)
             }
-        }.resume()
+            
+        } catch {
+            print("Error fetching bus data: \(error)")
+        }
+    }
+    
+    private func updateAnimatedBuses(with newBuses: [Bus]) {
+        for bus in newBuses {
+            guard let gps = bus.gps else { continue }
+            let newLocation = CLLocationCoordinate2D(latitude: gps.latitude,
+                                                     longitude: gps.longitude)
+            
+            // 1) Check if we already have an AnimatedBus for this ID
+            if let existingAnimatedBus = animatedBuses.first(where: { $0.id == bus.id }) {
+                // Update coordinate smoothly
+                existingAnimatedBus.updateCoordinate(to: newLocation)
+            } else {
+                // 2) If none exists, create a new one
+                let animated = AnimatedBus(id: bus.id,
+                                           title: bus.brand,
+                                           coordinate: newLocation)
+                animatedBuses.append(animated)
+            }
+        }
+        
+        // Optionally remove any buses that no longer exist in newBuses,
+        // if your server might remove buses. Otherwise, skip this.
+        let newIDs = Set(newBuses.map { $0.id })
+        animatedBuses.removeAll { !newIDs.contains($0.id) }
+    }
+}
+
+class AnimatedBus: Identifiable, ObservableObject, Equatable {
+    let id: Int
+    let title: String
+    
+    @Published var coordinate: CLLocationCoordinate2D
+    
+    init(id: Int, title: String, coordinate: CLLocationCoordinate2D) {
+        self.id = id
+        self.title = title
+        self.coordinate = coordinate
+    }
+    
+    func updateCoordinate(to newCoordinate: CLLocationCoordinate2D) {
+        // Animate the transition from old -> new position
+        withAnimation(.easeInOut(duration: 1.0)) {
+            self.coordinate = newCoordinate
+        }
+    }
+    
+    static func == (lhs: AnimatedBus, rhs: AnimatedBus) -> Bool {
+        return lhs.id == rhs.id
     }
 }
