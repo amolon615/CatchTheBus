@@ -27,7 +27,7 @@ struct AppLocationModel: Decodable {
 }
 
 extension AppLocationModel {
-    static var test1: AppLocationModel =
+    static let test1: AppLocationModel =
         .init(
             id: 218,
             type: "STOP_POINT",
@@ -48,7 +48,7 @@ extension AppLocationModel {
             areaId: 13
         )
     
-    static var test2: AppLocationModel =
+    static let test2: AppLocationModel =
         .init(
             id: 2,
             type: "STOP_POINT",
@@ -69,7 +69,7 @@ extension AppLocationModel {
             areaId: 14
         )
     
-    static var test3: AppLocationModel =
+    static let test3: AppLocationModel =
         .init(
             id: 33,
             type: "STOP_POINT",
@@ -90,7 +90,7 @@ extension AppLocationModel {
             areaId: 47
         )
     
-    static var test4: AppLocationModel =
+    static let test4: AppLocationModel =
         .init(
             id: 3,
             type: "STOP_POINT",

@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct AppAmenities: Decodable {
+struct AppAmenities: Decodable, Hashable {
     let hasWifi: Bool
     let hasToilet: Bool
 }

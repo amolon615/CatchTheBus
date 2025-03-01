@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct AppLegDescription: Decodable {
+struct AppLegDescription: Decodable, Hashable {
     let brand: String
     let `operator`: String
     let destinationBoard: String

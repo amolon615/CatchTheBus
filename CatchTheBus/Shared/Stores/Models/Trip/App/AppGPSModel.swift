@@ -14,7 +14,7 @@ struct AppGPSModel: Codable {
 }
 
 extension AppGPSModel {
-    static var test: AppGPSModel =
+    static let test: AppGPSModel =
         .init(
             lastUpdated: "2025-03-01T17:05:37.046000+00:00",
             longitude: -3.1950566,

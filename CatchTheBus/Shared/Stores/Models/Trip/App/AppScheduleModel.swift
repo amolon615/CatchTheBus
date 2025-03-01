@@ -6,10 +6,10 @@
 //
 import Foundation
 
-struct AppScheduleModel: Decodable {
+struct AppScheduleModel: Decodable, Hashable {
     let scheduled: String
     let actual: String?
-    let estimated: String
+    let estimated: String?
 }
 
 extension AppScheduleModel {

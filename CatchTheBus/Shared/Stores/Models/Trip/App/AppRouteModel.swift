@@ -19,7 +19,7 @@ struct AppRouteModel: Decodable {
 }
 
 extension AppRouteModel {
-    static var test: [AppRouteModel] = [
+    static let test: [AppRouteModel] = [
         .init(
             id: 1685013,
             departure: .depTest1,

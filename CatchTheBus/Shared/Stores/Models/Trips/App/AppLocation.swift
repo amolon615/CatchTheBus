@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct AppLocation: Decodable {
+struct AppLocation: Decodable, Hashable {
     let id: Int
     let atcoCode: String
     let detailedName: String

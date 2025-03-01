@@ -9,7 +9,7 @@ import Foundation
 struct PublicScheduleModel: Decodable {
     let scheduled: String
     let actual: String?
-    let estimated: String
+    let estimated: String?
 }
 
 extension PublicScheduleModel {

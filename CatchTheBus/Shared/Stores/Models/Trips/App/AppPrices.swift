@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct AppPrices: Decodable {
+struct AppPrices: Decodable, Hashable {
     let adult: Int
     let child: Int
     let youngChild: Int

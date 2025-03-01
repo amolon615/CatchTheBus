@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct AppLeg: Decodable {
+struct AppLeg: Decodable, Hashable {
     let type: String
     let tripUid: String
     let addsCapacityForTripUid: String?
@@ -31,5 +31,11 @@ extension AppLeg {
             description: .test,
             tripType: "public"
         )
+    }
+}
+
+extension AppLeg: Equatable {
+    static func == (lhs: AppLeg, rhs: AppLeg) -> Bool {
+        return lhs.tripUid == rhs.tripUid
     }
 }

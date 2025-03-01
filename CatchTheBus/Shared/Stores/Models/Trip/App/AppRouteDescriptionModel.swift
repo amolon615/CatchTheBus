@@ -17,7 +17,7 @@ struct AppRouteDescriptionModel: Codable {
 }
 
 extension AppRouteDescriptionModel {
-    static var test: AppRouteDescriptionModel =
+    static let test: AppRouteDescriptionModel =
         .init(
             routeNumber: "E1",
             patternId: 37246,
