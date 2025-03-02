@@ -21,3 +21,11 @@ extension PublicTripModel {
         )
     }
 }
+
+extension PublicTripModel {
+    static let test: PublicTripModel = .init(
+        route: PublicRouteModel.test,
+        vehicle: PublicVehicleModel.test,
+        description: PublicRouteDescriptionModel.test
+    )
+}

@@ -29,3 +29,15 @@ extension PublicPrices {
         )
     }
 }
+
+extension PublicPrices {
+    static let test: PublicPrices = .init(
+        adult: 850,
+        child: 425,
+        young_child: 0,
+        concession: 0,
+        seat: 0,
+        wheelchair: 0,
+        bicycle: 0
+    )
+}

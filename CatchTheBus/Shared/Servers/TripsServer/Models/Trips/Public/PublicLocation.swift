@@ -55,3 +55,55 @@ extension PublicLocation {
         )
     }
 }
+
+extension PublicLocation {
+    static var testOrigin: PublicLocation {
+        .init(
+            id: 218,
+            atco_code: "6400LL99",
+            detailed_name: "Slessor Gardens",
+            lat: 56.459319,
+            lon: -2.966036,
+            name: "Dundee Slessor Gardens",
+            region_name: "Dundee",
+            type: "STOP_POINT",
+            code: "DUND",
+            code_detail: "Dundee",
+            timezone: "Europe/London",
+            heading: 135,
+            zone: PublicCoordinateModel.testCoordinates1,
+            has_future_activity: true,
+            area_id: 13,
+            location_time_id: 1685013,
+            booking_cut_off_mins: 0,
+            pre_booked_only: false,
+            skipped: false,
+            bookable: "2025-03-01T15:00:00+00:00"
+        )
+    }
+    
+    static var testDestination: PublicLocation {
+        .init(
+            id: 175,
+            atco_code: "6200206490",
+            detailed_name: "George Street (Stop GL)",
+            lat: 55.95395,
+            lon: -3.19549,
+            name: "George Street",
+            region_name: "Edinburgh",
+            type: "STOP_POINT",
+            code: "EDIN",
+            code_detail: "Edinburgh",
+            timezone: "Europe/London",
+            heading: 75,
+            zone: PublicCoordinateModel.testCoordinates1,
+            has_future_activity: true,
+            area_id: 42,
+            location_time_id: 1685026,
+            booking_cut_off_mins: 0,
+            pre_booked_only: false,
+            skipped: false,
+            bookable: "2025-03-01T16:55:00+00:00"
+        )
+    }
+}

@@ -43,3 +43,22 @@ extension PublicVehicleModel {
         )
     }
 }
+
+extension PublicVehicleModel {
+    static let test: PublicVehicleModel = .init(
+        wheelchair: 1,
+        bicycle: 2,
+        seat: 40,
+        id: 36,
+        plate_number: "SG23 ORP",
+        name: "Yutong Coach (SG23 ORP)",
+        has_wifi: true,
+        has_toilet: true,
+        type: "coach",
+        brand: "Ember",
+        colour: "Black",
+        is_backup_vehicle: false,
+        owner_id: 1,
+        gps: PublicGPSModel.test
+    )
+}

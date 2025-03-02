@@ -21,3 +21,86 @@ extension PublicScheduleModel {
         )
     }
 }
+
+
+extension PublicScheduleModel {
+    static var depTest1: PublicScheduleModel {
+        .init(
+            scheduled: "2025-03-01T15:00:00+00:00",
+            actual: "2025-03-01T15:04:02+00:00",
+            estimated: "2025-03-01T15:01:24+00:00"
+        )
+    }
+    
+    static var arrTest1: PublicScheduleModel {
+        .init(
+            scheduled: "2025-03-01T15:00:00+00:00",
+            actual: "2025-03-01T15:00:47+00:00",
+            estimated: "2025-03-01T15:01:24+00:00"
+        )
+    }
+    
+    static var depTest2: PublicScheduleModel {
+        .init(
+            scheduled: "2025-03-01T15:09:00+00:00",
+            actual: nil,
+            estimated: "2025-03-01T15:11:02+00:00"
+        )
+    }
+    
+    static var arrTest2: PublicScheduleModel {
+        .init(
+            scheduled: "2025-03-01T15:09:00+00:00",
+            actual: nil,
+            estimated: "2025-03-01T15:11:02+00:00"
+        )
+    }
+    
+    static var depTest3: PublicScheduleModel {
+        .init(
+            scheduled: "2025-03-01T15:14:00+00:00",
+            actual: "2025-03-01T15:16:57+00:00",
+            estimated: "2025-03-01T15:16:16+00:00"
+        )
+    }
+    
+    static var arrTest3: PublicScheduleModel {
+        .init(
+            scheduled: "2025-03-01T15:14:00+00:00",
+            actual: "2025-03-01T15:16:27+00:00",
+            estimated: "2025-03-01T15:16:16+00:00"
+        )
+    }
+    
+    static var depTest4: PublicScheduleModel {
+        .init(
+            scheduled: "2025-03-01T15:16:00+00:00",
+            actual: "2025-03-01T15:19:20+00:00",
+            estimated: "2025-03-01T15:18:51+00:00"
+        )
+    }
+    
+    static var arrTest4: PublicScheduleModel {
+        .init(
+            scheduled: "2025-03-01T15:16:00+00:00",
+            actual: "2025-03-01T15:18:58+00:00",
+            estimated: "2025-03-01T15:18:51+00:00"
+        )
+    }
+    
+    static var depTest5: PublicScheduleModel {
+        .init(
+            scheduled: "2025-03-01T15:19:00+00:00",
+            actual: "2025-03-01T15:22:54+00:00",
+            estimated: "2025-03-01T15:22:20+00:00"
+        )
+    }
+    
+    static var arrTest5: PublicScheduleModel {
+        .init(
+            scheduled: "2025-03-01T15:19:00+00:00",
+            actual: "2025-03-01T15:22:28+00:00",
+            estimated: "2025-03-01T15:22:20+00:00"
+        )
+    }
+}

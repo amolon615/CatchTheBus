@@ -19,3 +19,10 @@ extension MultipleTripInfoDTO {
         )
     }
 }
+
+extension MultipleTripInfoDTO {
+    static let test: MultipleTripInfoDTO = .init(
+        quotes: [PublicQuote.test],
+        min_card_transaction: 30
+    )
+}

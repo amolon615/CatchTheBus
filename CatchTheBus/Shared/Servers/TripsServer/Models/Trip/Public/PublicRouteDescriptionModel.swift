@@ -28,4 +28,15 @@ extension PublicRouteDescriptionModel {
     }
 }
 
+extension PublicRouteDescriptionModel {
+    static let test: PublicRouteDescriptionModel = .init(
+        route_number: "E1",
+        pattern_id: 37246,
+        calendar_date: "2025-03-01",
+        type: "public",
+        is_cancelled: false,
+        route_id: 1
+    )
+}
+
 

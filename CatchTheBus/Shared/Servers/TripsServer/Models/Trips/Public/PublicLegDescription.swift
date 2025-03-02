@@ -31,3 +31,16 @@ extension PublicLegDescription {
         )
     }
 }
+
+extension PublicLegDescription {
+    static let test: PublicLegDescription = .init(
+        brand: "Ember",
+        operator: "Ember",
+        destination_board: "E1",
+        number_plate: "SG23 ORP",
+        vehicle_type: "coach",
+        colour: "Black",
+        amenities: PublicAmenities.test,
+        is_electric: true
+    )
+}

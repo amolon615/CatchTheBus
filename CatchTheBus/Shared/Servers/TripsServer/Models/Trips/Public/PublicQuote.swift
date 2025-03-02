@@ -23,3 +23,12 @@ extension PublicQuote {
         )
     }
 }
+
+extension PublicQuote {
+    static let test: PublicQuote = .init(
+        availability: PublicAvailability.test,
+        prices: PublicPrices.test,
+        legs: [PublicLeg.test],
+        bookable: true
+    )
+}

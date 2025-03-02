@@ -21,3 +21,11 @@ extension PublicAvailability {
         )
     }
 }
+
+extension PublicAvailability {
+    static let test: PublicAvailability = .init(
+        seat: 10,
+        wheelchair: 0,
+        bicycle: 2
+    )
+}

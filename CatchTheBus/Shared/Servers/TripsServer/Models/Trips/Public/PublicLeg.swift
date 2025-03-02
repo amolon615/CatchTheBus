@@ -33,3 +33,17 @@ extension PublicLeg {
         )
     }
 }
+
+extension PublicLeg {
+    static let test: PublicLeg = .init(
+        type: "scheduled_transit",
+        trip_uid: "T9nybGfxnQV4UUrUECS9Yt",
+        adds_capacity_for_trip_uid: nil,
+        origin: PublicLocation.testOrigin,
+        destination: PublicLocation.testDestination,
+        departure: PublicScheduleModel.arrTest1,
+        arrival: PublicScheduleModel.depTest1,
+        description: PublicLegDescription.test,
+        trip_type: "public"
+    )
+}

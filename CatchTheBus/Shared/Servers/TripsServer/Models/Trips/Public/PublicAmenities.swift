@@ -19,3 +19,10 @@ extension PublicAmenities {
         )
     }
 }
+
+extension PublicAmenities {
+    static let test: PublicAmenities = .init(
+        has_wifi: true,
+        has_toilet: true
+    )
+}
