@@ -49,6 +49,7 @@ enum RootViewState {
 struct HomeScreen: View {
     @StateObject var viewModel: UIRootCoordinatorViewModel
     @EnvironmentObject private var appDependencies: AppDependencies
+    @EnvironmentObject private var networkObserver: NetworkObserver
     
     var body: some View {
         NavigationStack {
@@ -74,7 +75,11 @@ struct HomeScreen: View {
     
     @ViewBuilder
     private func trackedTripView(tripUID: String) -> some View {
-        let viewModel: UITripViewModel = .init(tripID: tripUID, tripsServer: appDependencies.tripServer)
+        let viewModel: UITripViewModel = .init(
+            tripID: tripUID,
+            tripsServer: appDependencies.tripServer,
+            networkObserver: networkObserver
+        )
         CurrentTripView(viewModel: viewModel) {
             self.viewModel.untrackTrip()
         }
