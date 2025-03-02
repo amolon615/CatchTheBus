@@ -24,7 +24,7 @@ final actor AppTripsServer: TripServer {
         
         let client = self.httpClient
         let response: MultipleTripInfoDTO = try await client.request(
-            endpoint: Constants.getAllTripsInfoUR(fromDate: fromString, toDate: toString)
+            endpoint: Constants.TripsServer.getAllTripsInfoUR(fromDate: fromString, toDate: toString)
         )
         
         self.trips = response
@@ -33,7 +33,7 @@ final actor AppTripsServer: TripServer {
     func fetchOneTrip(withID id: String) async throws -> AppTripModel? {
         let client = self.httpClient
         let response: PublicTripModel = try await client.request(
-            endpoint: Constants.getOneTripDetailedInfoURL(withID: id)
+            endpoint: Constants.TripsServer.getOneTripDetailedInfoURL(withID: id)
         )
         return response.appModel
     }
