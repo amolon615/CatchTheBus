@@ -7,11 +7,62 @@
 
 import SwiftUI
 
+final class UIRootCoordinatorViewModel: ObservableObject {
+    @Published private(set) var state: RootViewState = .allTrips
+    
+    func trackTrip(_ tripUID: String) {
+        state = .trackedTrip(tripUID)
+    }
+    
+    func untrackTrip() {
+        state = .allTrips
+    }
+}
+
+enum RootViewState {
+    case allTrips
+    case trackedTrip(String)
+    var title: String {
+        switch self {
+        case .allTrips:
+            return "All trips"
+        case .trackedTrip:
+            return "Tracked trip"
+        }
+    }
+}
+
 struct HomeScreen: View {
+    @StateObject var viewModel: UIRootCoordinatorViewModel
+    @EnvironmentObject private var appDependencies: AppDependencies
+    
     var body: some View {
         NavigationStack {
-            Text("Hello")
-                .navigationTitle("Ember")
+            Group {
+                switch viewModel.state {
+                case .allTrips:
+                    tripsFeed
+                case .trackedTrip(let tripUID):
+                    trackedTripView(tripUID: tripUID)
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var tripsFeed: some View {
+        let viewModel: UITripsFeedViewModel = .init(server: appDependencies.tripServer)
+        TripsFeedView(viewModel: viewModel) { selectedTripID in
+            self.viewModel.trackTrip(selectedTripID)
+        }
+        .environmentObject(appDependencies)
+    }
+    
+    @ViewBuilder
+    private func trackedTripView(tripUID: String) -> some View {
+        let viewModel: UITripViewModel = .init(tripID: tripUID, tripsServer: appDependencies.tripServer)
+        CurrentTripView(viewModel: viewModel) {
+            self.viewModel.untrackTrip()
         }
     }
 }
