@@ -8,29 +8,33 @@ import Foundation
 import SwiftUI
 
 final actor AppTripsServer: TripServer {
-    private let httpClient: HttpClient
+    private let httpClient: HTTPClientProtocol
     private(set) var trips: MultipleTripInfoDTO?
     
-    init(httpClient: HttpClient) {
+    init(httpClient: HTTPClientProtocol) {
         self.httpClient = httpClient
     }
     
     func fetchTrips(fromDate: Date, toDate: Date) async throws {
-            let isoFormatter = ISO8601DateFormatter()
-            isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
 
-            let fromString = isoFormatter.string(from: fromDate)
-            let toString   = isoFormatter.string(from: toDate)
-            
-            let response: MultipleTripInfoDTO = try await httpClient.request(
-                endpoint: Constants.getAllTripsInfoUR(fromDate: fromString, toDate: toString)
-            )
-            
-            self.trips = response
-        }
+        let fromString = isoFormatter.string(from: fromDate)
+        let toString   = isoFormatter.string(from: toDate)
+        
+        let client = self.httpClient
+        let response: MultipleTripInfoDTO = try await client.request(
+            endpoint: Constants.getAllTripsInfoUR(fromDate: fromString, toDate: toString)
+        )
+        
+        self.trips = response
+    }
     
     func fetchOneTrip(withID id: String) async throws -> AppTripModel? {
-        let response: PublicTripModel = try await httpClient.request(endpoint: Constants.getOneTripDetailedInfoURL(withID: id))
+        let client = self.httpClient
+        let response: PublicTripModel = try await client.request(
+            endpoint: Constants.getOneTripDetailedInfoURL(withID: id)
+        )
         return response.appModel
     }
 }
