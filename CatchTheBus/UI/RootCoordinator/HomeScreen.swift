@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeScreen: View {
     var body: some View {
         NavigationStack {
-            MapView()
+            Text("Hello")
                 .navigationTitle("Ember")
         }
     }

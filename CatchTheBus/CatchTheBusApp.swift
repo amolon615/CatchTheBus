@@ -21,7 +21,7 @@ final class AppDependencies: ObservableObject {
 
 @main
 struct CatchTheBusApp: App {
-    let httpClient = HttpClient()
+    @StateObject var networkObserver: NetworkObserver = .shared
     private let appDependencies = AppDependencies()
     
     init() {
@@ -33,6 +33,7 @@ struct CatchTheBusApp: App {
             tripsFeed
                 .environmentObject(appDependencies)
                 .environmentObject(appDependencies.tripServer)
+                .environmentObject(networkObserver)
         }
     }
     
