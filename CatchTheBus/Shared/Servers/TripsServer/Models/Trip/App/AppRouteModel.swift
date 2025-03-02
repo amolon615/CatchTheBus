@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct AppRouteModel: Decodable {
+struct AppRouteModel: Decodable, Equatable {
     let id: Int
     let departure: AppScheduleModel
     let arrival: AppScheduleModel

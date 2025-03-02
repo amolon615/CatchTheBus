@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AppRouteDescriptionModel: Codable {
+struct AppRouteDescriptionModel: Codable, Equatable {
     let routeNumber: String
     let patternId: Int
     let calendarDate: String

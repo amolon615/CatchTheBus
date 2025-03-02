@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct PublicAmenities: Decodable {
+struct PublicAmenities: Decodable, Equatable {
     let has_wifi: Bool
     let has_toilet: Bool
 }

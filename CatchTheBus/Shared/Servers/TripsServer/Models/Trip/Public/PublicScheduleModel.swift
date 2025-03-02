@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct PublicScheduleModel: Decodable {
+struct PublicScheduleModel: Decodable, Equatable {
     let scheduled: String
     let actual: String?
     let estimated: String?

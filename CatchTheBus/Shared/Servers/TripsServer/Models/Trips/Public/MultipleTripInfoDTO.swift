@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct MultipleTripInfoDTO: Decodable, Sendable {
+struct MultipleTripInfoDTO: Decodable, Sendable, Equatable {
     let quotes: [PublicQuote]
     let min_card_transaction: Int
 }

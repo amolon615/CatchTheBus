@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct PublicPrices: Decodable {
+struct PublicPrices: Decodable, Equatable {
     let adult: Int
     let child: Int
     let young_child: Int

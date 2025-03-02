@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct AppCoordinateModel: Codable, Hashable {
+struct AppCoordinateModel: Codable, Hashable, Equatable {
     let latitude: Double
     let longitude: Double
 }

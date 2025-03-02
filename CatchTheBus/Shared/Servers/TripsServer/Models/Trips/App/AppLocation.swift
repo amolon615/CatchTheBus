@@ -18,7 +18,7 @@ struct AppLocation: Decodable, Hashable {
     let code: String
     let codeDetail: String
     let timezone: String
-    let heading: Int
+    let heading: Double
     let zone: [AppCoordinateModel]
     let hasFutureActivity: Bool
     let areaId: Int

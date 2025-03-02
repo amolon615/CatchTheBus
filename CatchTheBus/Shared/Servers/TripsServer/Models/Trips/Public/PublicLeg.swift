@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct PublicLeg: Decodable {
+struct PublicLeg: Decodable, Equatable {
     let type: String
     let trip_uid: String
     let adds_capacity_for_trip_uid: String?

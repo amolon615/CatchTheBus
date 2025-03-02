@@ -6,14 +6,14 @@
 //
 import Foundation
 
-struct AppTripModel: Decodable {
+struct AppTripModel: Decodable, Equatable {
     let route: [AppRouteModel]
     let vehicle: AppVehicleModel
     let description: AppRouteDescriptionModel
 }
 
 extension AppTripModel {
-    var test: AppTripModel {
+    static var test: AppTripModel {
         .init(
             route: AppRouteModel.test,
             vehicle: .test,

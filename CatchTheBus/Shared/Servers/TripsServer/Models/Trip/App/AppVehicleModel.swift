@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct AppVehicleModel: Codable {
+struct AppVehicleModel: Codable, Equatable {
     let wheelchair: Int
     let bicycle: Int
     let seat: Int

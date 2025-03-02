@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct PublicLocation: Decodable {
+struct PublicLocation: Decodable, Equatable {
     let id: Int
     let atco_code: String
     let detailed_name: String
@@ -18,7 +18,7 @@ struct PublicLocation: Decodable {
     let code: String
     let code_detail: String
     let timezone: String
-    let heading: Int
+    let heading: Double
     let zone: [PublicCoordinateModel]
     let has_future_activity: Bool
     let area_id: Int

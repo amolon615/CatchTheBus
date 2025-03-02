@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct PublicQuote: Decodable {
+struct PublicQuote: Decodable, Equatable {
     let availability: PublicAvailability
     let prices: PublicPrices
     let legs: [PublicLeg]

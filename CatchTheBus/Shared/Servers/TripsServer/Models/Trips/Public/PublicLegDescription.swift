@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct PublicLegDescription: Decodable {
+struct PublicLegDescription: Decodable, Equatable {
     let brand: String
     let `operator`: String
     let destination_board: String

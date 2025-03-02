@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct PublicCoordinateModel: Decodable {
+struct PublicCoordinateModel: Decodable, Equatable {
     let latitude: Double
     let longitude: Double
 }

@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct PublicAvailability: Decodable {
+struct PublicAvailability: Decodable, Equatable {
     let seat: Int
     let wheelchair: Int
     let bicycle: Int

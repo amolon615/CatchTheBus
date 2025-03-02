@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct AppGPSModel: Codable {
+struct AppGPSModel: Codable, Equatable {
     let lastUpdated: String
     let longitude: Double
     let latitude: Double
