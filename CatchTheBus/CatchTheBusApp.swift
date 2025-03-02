@@ -30,7 +30,7 @@ struct CatchTheBusApp: App {
     
     var body: some Scene {
         WindowGroup {
-            tripsFeed
+            rootView
                 .environmentObject(appDependencies)
                 .environmentObject(appDependencies.tripServer)
                 .environmentObject(networkObserver)
@@ -38,10 +38,9 @@ struct CatchTheBusApp: App {
     }
     
     @ViewBuilder
-    private var tripsFeed: some View {
-        let viewModel: UITripsFeedViewModel = .init(server: appDependencies.tripServer)
-        TripsFeedView(viewModel: viewModel)
-            .environmentObject(appDependencies)
+    private var rootView: some View {
+        let viewModel: UIRootCoordinatorViewModel = .init()
+        HomeScreen(viewModel: viewModel)
     }
     
     private func loadRocketSimConnect() {

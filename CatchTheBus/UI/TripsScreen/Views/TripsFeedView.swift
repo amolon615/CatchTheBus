@@ -21,6 +21,8 @@ struct TripsFeedView<ViewModel: TripsFeedViewModel>: View {
     @State private var fromDate: Date = Calendar.current.startOfDay(for: Date())
     @State private var toDate: Date   = Date()
     
+    var selectedTripID: (_ trip: String) -> Void
+    
     var body: some View {
         VStack {
             VStack {
@@ -78,9 +80,6 @@ struct TripsFeedView<ViewModel: TripsFeedViewModel>: View {
                     }
                 }
             }
-            .navigationDestination(for: AppLeg.self) { legData in
-                openTripView(forID: legData.tripUid)
-            }
             .task {
                 await viewModel.fetchTrips(from: fromDate, to: toDate)
             }
@@ -90,19 +89,14 @@ struct TripsFeedView<ViewModel: TripsFeedViewModel>: View {
         }
     }
     
-    @ViewBuilder
-    private func openTripView(forID id: String) -> some View {
-        let viewModel: UITripViewModel = .init(tripID: id, tripsServer: tripsServer)
-        CurrentTripView(viewModel: viewModel)
-    }
-    
     private var routesList: some View {
         List {
             ForEach(viewModel.trips) { trip in
                 if let trip = trip.legs.first {
-                    NavigationLink(value: trip) {
                         Text("\(trip.tripUid)")
-                    }
+                        .onTapGesture {
+                            selectedTripID(trip.tripUid)
+                        }
                 }
             }
             .listRowSeparator(.hidden, edges: .all)
@@ -132,7 +126,7 @@ struct TripsFeedView<ViewModel: TripsFeedViewModel>: View {
 struct TripsFeedView_Previews: PreviewProvider {
     static var previews: some View {
         ForEach(TripsFeedViewModelState.allCases, id: \.self) { state in
-            TripsFeedView(viewModel: MockTripsFeedViewModel(state: state))
+            TripsFeedView(viewModel: MockTripsFeedViewModel(state: state), selectedTripID: {_ in})
                 .previewDisplayName(state.title)
         }
     }
