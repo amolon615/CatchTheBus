@@ -9,7 +9,28 @@
 import Foundation
 import UIKit
 
-final class HttpClient: Sendable {
+protocol HTTPClientProtocol: Sendable {
+    func request<T: Decodable>(
+        endpoint: String,
+        method: String,
+        body: Data?,
+        accessToken: String?
+    ) async throws -> T
+}
+
+extension HTTPClientProtocol {
+    func request<T: Decodable>(
+        endpoint: String,
+        method: String = "GET",
+        body: Data? = nil,
+        accessToken: String? = nil
+    ) async throws -> T {
+        try await request(endpoint: endpoint, method: method, body: body, accessToken: accessToken)
+    }
+}
+
+
+final class HttpClient: HTTPClientProtocol, Sendable {
     
     enum HttpError: Error, LocalizedError {
         case invalidURL
