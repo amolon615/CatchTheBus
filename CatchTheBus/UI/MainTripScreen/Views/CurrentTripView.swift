@@ -133,6 +133,16 @@ struct CurrentTripView: View {
                     .contentTransition(.symbolEffect(.replace))
                 }
                 
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        viewModel.toggleLiveActivity()
+                    } label: {
+                        Image(systemName: viewModel.isLiveActivityEnabled ? "livephoto" : "livephoto.slash")
+                            .font(.system(size: 22))
+                            .tint(viewModel.isLiveActivityEnabled ? .green : .gray)
+                    }
+                }
+                
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {

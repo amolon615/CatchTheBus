@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5385B2AE2D752872004EAEF0 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5385B2AD2D752872004EAEF0 /* WidgetKit.framework */; };
+		5385B2B02D752872004EAEF0 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5385B2AF2D752872004EAEF0 /* SwiftUI.framework */; };
+		5385B2BF2D752873004EAEF0 /* CatchTheBusLiveActivityExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5385B2AB2D752872004EAEF0 /* CatchTheBusLiveActivityExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		5385B1F02D73DCB3004EAEF0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -14,22 +20,82 @@
 			remoteGlobalIDString = 530DF0762D64884C00DBB0E5;
 			remoteInfo = CatchTheBus;
 		};
+		5385B2BD2D752873004EAEF0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 530DF06F2D64884C00DBB0E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5385B2AA2D752872004EAEF0;
+			remoteInfo = CatchTheBusLiveActivityExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5385B2C42D752873004EAEF0 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5385B2BF2D752873004EAEF0 /* CatchTheBusLiveActivityExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		530DF0772D64884C00DBB0E5 /* CatchTheBus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatchTheBus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5385B1EC2D73DCB3004EAEF0 /* CatchTheBusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CatchTheBusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5385B2AB2D752872004EAEF0 /* CatchTheBusLiveActivityExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CatchTheBusLiveActivityExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5385B2AD2D752872004EAEF0 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		5385B2AF2D752872004EAEF0 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5385B2A32D752775004EAEF0 /* Exceptions for "CatchTheBus" folder in "CatchTheBus" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 530DF0762D64884C00DBB0E5 /* CatchTheBus */;
+		};
+		5385B2C32D752873004EAEF0 /* Exceptions for "CatchTheBusLiveActivity" folder in "CatchTheBusLiveActivityExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 5385B2AA2D752872004EAEF0 /* CatchTheBusLiveActivityExtension */;
+		};
+		5385B2C62D752940004EAEF0 /* Exceptions for "CatchTheBus" folder in "CatchTheBusLiveActivityExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Shared/Utils/Shared UI/BusTripAttributes.swift",
+			);
+			target = 5385B2AA2D752872004EAEF0 /* CatchTheBusLiveActivityExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		530DF0792D64884C00DBB0E5 /* CatchTheBus */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5385B2A32D752775004EAEF0 /* Exceptions for "CatchTheBus" folder in "CatchTheBus" target */,
+				5385B2C62D752940004EAEF0 /* Exceptions for "CatchTheBus" folder in "CatchTheBusLiveActivityExtension" target */,
+			);
 			path = CatchTheBus;
 			sourceTree = "<group>";
 		};
 		5385B1ED2D73DCB3004EAEF0 /* CatchTheBusTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = CatchTheBusTests;
+			sourceTree = "<group>";
+		};
+		5385B2B12D752872004EAEF0 /* CatchTheBusLiveActivity */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5385B2C32D752873004EAEF0 /* Exceptions for "CatchTheBusLiveActivity" folder in "CatchTheBusLiveActivityExtension" target */,
+			);
+			path = CatchTheBusLiveActivity;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -49,6 +115,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5385B2A82D752872004EAEF0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5385B2B02D752872004EAEF0 /* SwiftUI.framework in Frameworks */,
+				5385B2AE2D752872004EAEF0 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -57,6 +132,8 @@
 			children = (
 				530DF0792D64884C00DBB0E5 /* CatchTheBus */,
 				5385B1ED2D73DCB3004EAEF0 /* CatchTheBusTests */,
+				5385B2B12D752872004EAEF0 /* CatchTheBusLiveActivity */,
+				5385B2AC2D752872004EAEF0 /* Frameworks */,
 				530DF0782D64884C00DBB0E5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -66,8 +143,18 @@
 			children = (
 				530DF0772D64884C00DBB0E5 /* CatchTheBus.app */,
 				5385B1EC2D73DCB3004EAEF0 /* CatchTheBusTests.xctest */,
+				5385B2AB2D752872004EAEF0 /* CatchTheBusLiveActivityExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		5385B2AC2D752872004EAEF0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5385B2AD2D752872004EAEF0 /* WidgetKit.framework */,
+				5385B2AF2D752872004EAEF0 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,10 +167,12 @@
 				530DF0732D64884C00DBB0E5 /* Sources */,
 				530DF0742D64884C00DBB0E5 /* Frameworks */,
 				530DF0752D64884C00DBB0E5 /* Resources */,
+				5385B2C42D752873004EAEF0 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				5385B2BE2D752873004EAEF0 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				530DF0792D64884C00DBB0E5 /* CatchTheBus */,
@@ -118,6 +207,28 @@
 			productReference = 5385B1EC2D73DCB3004EAEF0 /* CatchTheBusTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		5385B2AA2D752872004EAEF0 /* CatchTheBusLiveActivityExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5385B2C02D752873004EAEF0 /* Build configuration list for PBXNativeTarget "CatchTheBusLiveActivityExtension" */;
+			buildPhases = (
+				5385B2A72D752872004EAEF0 /* Sources */,
+				5385B2A82D752872004EAEF0 /* Frameworks */,
+				5385B2A92D752872004EAEF0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				5385B2B12D752872004EAEF0 /* CatchTheBusLiveActivity */,
+			);
+			name = CatchTheBusLiveActivityExtension;
+			packageProductDependencies = (
+			);
+			productName = CatchTheBusLiveActivityExtension;
+			productReference = 5385B2AB2D752872004EAEF0 /* CatchTheBusLiveActivityExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -134,6 +245,9 @@
 					5385B1EB2D73DCB3004EAEF0 = {
 						CreatedOnToolsVersion = 16.2;
 						TestTargetID = 530DF0762D64884C00DBB0E5;
+					};
+					5385B2AA2D752872004EAEF0 = {
+						CreatedOnToolsVersion = 16.2;
 					};
 				};
 			};
@@ -153,6 +267,7 @@
 			targets = (
 				530DF0762D64884C00DBB0E5 /* CatchTheBus */,
 				5385B1EB2D73DCB3004EAEF0 /* CatchTheBusTests */,
+				5385B2AA2D752872004EAEF0 /* CatchTheBusLiveActivityExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -166,6 +281,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		5385B1EA2D73DCB3004EAEF0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5385B2A92D752872004EAEF0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -189,6 +311,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5385B2A72D752872004EAEF0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -196,6 +325,11 @@
 			isa = PBXTargetDependency;
 			target = 530DF0762D64884C00DBB0E5 /* CatchTheBus */;
 			targetProxy = 5385B1F02D73DCB3004EAEF0 /* PBXContainerItemProxy */;
+		};
+		5385B2BE2D752873004EAEF0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5385B2AA2D752872004EAEF0 /* CatchTheBusLiveActivityExtension */;
+			targetProxy = 5385B2BD2D752873004EAEF0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -330,6 +464,8 @@
 				DEVELOPMENT_TEAM = NUUAUT9ZDU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CatchTheBus/Info.plist;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -342,9 +478,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.horovenko.CatchTheBus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -359,6 +499,8 @@
 				DEVELOPMENT_TEAM = NUUAUT9ZDU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CatchTheBus/Info.plist;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -371,9 +513,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.horovenko.CatchTheBus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -413,6 +559,60 @@
 			};
 			name = Release;
 		};
+		5385B2C12D752873004EAEF0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NUUAUT9ZDU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CatchTheBusLiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CatchTheBusLiveActivity;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.horovenko.CatchTheBus.CatchTheBusLiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5385B2C22D752873004EAEF0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NUUAUT9ZDU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CatchTheBusLiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CatchTheBusLiveActivity;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.horovenko.CatchTheBus.CatchTheBusLiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -439,6 +639,15 @@
 			buildConfigurations = (
 				5385B1F32D73DCB3004EAEF0 /* Debug */,
 				5385B1F42D73DCB3004EAEF0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5385B2C02D752873004EAEF0 /* Build configuration list for PBXNativeTarget "CatchTheBusLiveActivityExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5385B2C12D752873004EAEF0 /* Debug */,
+				5385B2C22D752873004EAEF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
