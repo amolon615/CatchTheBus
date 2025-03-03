@@ -22,8 +22,6 @@ struct TripDetailsView: View {
                     .frame(maxWidth: .infinity)
                     .cornerRadius(12)
                     .matchedGeometryEffect(id: "busImage", in: animation)
-                
-                // Bus details
                 Group {
                     HStack(alignment: .center) {
                         Text(trip.vehicle.brand)
@@ -32,7 +30,6 @@ struct TripDetailsView: View {
                         
                         Spacer()
                         
-                        // Bus color indicator
                         HStack {
                             Circle()
                                 .fill(Color(trip.vehicle.colour.lowercased()))

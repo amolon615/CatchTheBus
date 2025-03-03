@@ -7,10 +7,42 @@
 
 import SwiftUI
 
+enum AppGlobalState: Equatable {
+    case onboarding
+    case app
+}
+
+final class AppStateManager: ObservableObject {
+    @Published var state: AppGlobalState?
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding: Bool = false
+    
+    init() {
+        self.state = hasCompletedOnboarding ? .app : .onboarding
+    }
+    
+    func completeOnboarding() {
+        hasCompletedOnboarding = true
+        withAnimation(.easeInOut) {
+            state = .app
+        }
+    }
+    
+    func resetOnboarding() {
+        // For testing purposes
+        hasCompletedOnboarding = false
+        withAnimation(.easeInOut) {
+            state = .onboarding
+        }
+    }
+}
+
+
+
 final class UIRootCoordinatorViewModel: ObservableObject {
     @Published private(set) var state: RootViewState = .allTrips
     
     @AppStorage("savedCurrentTripUID") var currentTrackedTripUID: String?
+    
     
     init() {
         loadSavedTrackedTrip()

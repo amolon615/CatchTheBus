@@ -22,6 +22,7 @@ final class AppDependencies: ObservableObject {
 @main
 struct CatchTheBusApp: App {
     @StateObject var networkObserver: NetworkObserver = .shared
+    @StateObject private var appStateManager = AppStateManager()
     private let appDependencies = AppDependencies()
     
     init() {
@@ -30,18 +31,18 @@ struct CatchTheBusApp: App {
     
     var body: some Scene {
         WindowGroup {
-            rootView
+            appRootView
                 .environmentObject(appDependencies)
                 .environmentObject(appDependencies.tripServer)
                 .environmentObject(networkObserver)
+                .environmentObject(appStateManager)
         }
     }
     
-    @ViewBuilder
-    private var rootView: some View {
-        let viewModel: UIRootCoordinatorViewModel = .init()
-        HomeScreen(viewModel: viewModel)
+    private var appRootView: some View {
+        AppRoot(appStateManager: appStateManager)
     }
+  
     
     private func loadRocketSimConnect() {
         #if DEBUG
