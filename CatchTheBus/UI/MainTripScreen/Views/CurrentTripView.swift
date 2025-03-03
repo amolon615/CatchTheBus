@@ -20,6 +20,9 @@ struct CurrentTripView: View {
     @AppStorage("mapStandardMode") private var mapStandardMode: Bool = true
     @State private var showDetailsView: Bool = false
     
+    @State private var showDetails = false
+    @Namespace private var animation
+    
     var busAnnotation: BusAnnotation? {
         guard let vehicle = viewModel.currentTrip?.vehicle else { return nil }
         return BusAnnotation(
@@ -51,6 +54,16 @@ struct CurrentTripView: View {
                 })
                 .sheet(isPresented: .constant(true)) {
                     tripTimeTableView
+                        .sheet(isPresented: $showDetails, content: {
+                            if let trip = viewModel.currentTrip {
+                                TripDetailsView(
+                                    trip: trip,
+                                    showDetails: $showDetails,
+                                    animation: animation
+                                )
+                            }
+                          
+                        })
                 }
                 .task {
                     viewModel.startUpdatingTripInfo()
@@ -125,7 +138,7 @@ struct CurrentTripView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
                         withAnimation {
-                            showDetailsView.toggle()
+                            showDetails.toggle()
                         }
                     } label: {
                         Image(systemName: "info.circle.fill")
