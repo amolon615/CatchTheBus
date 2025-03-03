@@ -10,6 +10,7 @@ import Foundation
 final class MockTripsFeedViewModel: TripsFeedViewModel {
     @Published private(set) var trips: [AppQuote] = []
     @Published private(set) var state: TripsFeedViewModelState
+    @Published var searchField: String = ""
     
     init(state: TripsFeedViewModelState) {
         self.state = state

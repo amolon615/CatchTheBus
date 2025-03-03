@@ -8,8 +8,22 @@ import Foundation
 
 @MainActor
 final class UITripsFeedViewModel: TripsFeedViewModel {
-    @Published private(set) var trips: [AppQuote] = []
     @Published private(set) var state: TripsFeedViewModelState = .idle
+    @Published var searchField: String = ""
+    
+    private(set) var rawTripsData: [AppQuote] = [] {
+        didSet {
+            objectWillChange.send()
+        }
+    }
+    
+    var trips: [AppQuote] {
+        if searchField.isEmpty {
+            return rawTripsData
+        } else {
+            return rawTripsData.filter { $0.legs.contains { $0.destination.regionName.lowercased().contains(searchField.lowercased()) || $0.origin.regionName.lowercased().contains(searchField.lowercased()) } }
+        }
+    }
     
     let server: AppTripsServer
     
@@ -31,7 +45,7 @@ final class UITripsFeedViewModel: TripsFeedViewModel {
     
     private func loadTrips() async {
         guard let trips = await server.trips else { return }
-        self.trips = trips.quotes.map({ $0.appModel })
+        self.rawTripsData = trips.quotes.map({ $0.appModel })
         self.state = self.trips.isEmpty ? .empty : .data
     }
 }

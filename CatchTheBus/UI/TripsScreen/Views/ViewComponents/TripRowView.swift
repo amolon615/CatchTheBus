@@ -29,11 +29,11 @@ struct TripRowView: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
-                    Text(leg.origin.name)
+                    Text(leg.origin.regionName)
                         .font(.headline)
                     Image(systemName: "arrow.right")
                         .foregroundColor(.gray)
-                    Text(leg.destination.name)
+                    Text(leg.destination.regionName)
                         .font(.headline)
                 }
                 

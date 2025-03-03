@@ -11,5 +11,7 @@ protocol TripsFeedViewModel: Sendable, ObservableObject {
     var trips: [AppQuote] { get }
     var state: TripsFeedViewModelState { get }
     
+    var searchField: String { get set }
+    
     func fetchTrips(from: Date, to: Date) async
 }

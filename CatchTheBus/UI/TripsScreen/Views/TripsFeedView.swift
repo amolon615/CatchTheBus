@@ -51,6 +51,7 @@ struct TripsFeedView<ViewModel: TripsFeedViewModel>: View {
                     tripsListLoaderView
                 case .data:
                     tripsList
+                        .searchable(text: $viewModel.searchField, placement: .navigationBarDrawer, prompt: "Start typing navigation or destination name...")
                 case .error:
                     ContentUnavailableView {
                         Label("Error fetching trips.", systemImage: "exclamationmark.triangle")
