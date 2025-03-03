@@ -24,9 +24,6 @@ final class UITripViewModel: ObservableObject {
     }
     
     func fetchTripInfo() async {
-        guard networkObserver.isConnected else {
-            return
-        }
         do {
             let updatedTrip = try await tripsServer.fetchOneTrip(withID: tripID)
             currentTrip = updatedTrip
@@ -41,9 +38,6 @@ final class UITripViewModel: ObservableObject {
     }
     
     func startUpdatingTripInfo() {
-        guard networkObserver.isConnected else {
-            return
-        }
         updateTask?.cancel()
         updateTask = Task {
             while !Task.isCancelled {
