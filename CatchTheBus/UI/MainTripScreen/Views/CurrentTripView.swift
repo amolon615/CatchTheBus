@@ -64,6 +64,15 @@ struct CurrentTripView: View {
                             }
                           
                         })
+                        .alert(isPresented: $viewModel.showErrorAlert) {
+                            Alert(
+                                title: Text("This trip has expired."),
+                                message: Text(viewModel.tripError?.errorDescription ?? "An unknown error occurred"),
+                                primaryButton: .destructive(Text("Go Back")) {
+                                    stopTracking()
+                                }, secondaryButton: .cancel()
+                            )
+                        }
                 }
                 .task {
                     viewModel.startUpdatingTripInfo()
@@ -237,7 +246,6 @@ struct CurrentTripView: View {
                                     .padding(.leading, 10)
                             }
                         }
-                        
                         
                         switch index {
                             //Departure stop
