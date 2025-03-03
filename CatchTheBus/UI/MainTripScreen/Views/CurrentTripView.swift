@@ -17,7 +17,7 @@ struct CurrentTripView: View {
     )
     
     @State private var isShowingTimetable: Bool = true
-    @State private var mapStandardMode: Bool = false
+    @AppStorage("mapStandardMode") private var mapStandardMode: Bool = true
     @State private var showDetailsView: Bool = false
     
     var busAnnotation: BusAnnotation? {
@@ -45,6 +45,7 @@ struct CurrentTripView: View {
     var body: some View {
         NavigationStack {
             mapView
+                .ignoresSafeArea(.all, edges: .top)
                 .overlay(alignment: .top, content: {
                     offlineIndicatorView
                 })
@@ -227,54 +228,79 @@ struct CurrentTripView: View {
                         
                         switch index {
                             //Departure stop
-                        case 0:
-                            HStack {
-                                Text("\(route.location.name)")
-                                    .padding(.leading, 5)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .foregroundColor(index < currentStopIndex ? Color.gray : Color.primary)
-                                timeProperties(for: route.arrival)
-                                    .padding(.trailing, 5)
-                                    .frame(maxWidth: .infinity, alignment: .trailing)
-                                    .foregroundColor(index < currentStopIndex ? Color.gray : Color.primary)
-                            }
-                            .padding(.horizontal, 5)
-                            .frame(maxWidth: .infinity)
-                            Divider()
+                            case 0:
+                                VStack(spacing: 0) {
+                                    HStack(alignment: .top) {
+                                        Text("\(route.location.name)")
+                                            .padding(.leading, 5)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .fixedSize(horizontal: false, vertical: true) // Allow vertical growth
+                                            .lineLimit(nil) // Allow multiple lines
+                                            .foregroundColor(index < currentStopIndex ? Color.gray : Color.primary)
+                                        
+                                        timeProperties(for: route.arrival)
+                                            .padding(.trailing, 5)
+                                            .frame(maxWidth: .infinity, alignment: .trailing)
+                                            .foregroundColor(index < currentStopIndex ? Color.gray : Color.primary)
+                                    }
+                                    .padding(.horizontal, 5)
+                                    
+                                    Divider()
+                                        .padding(.horizontal, 5)
+                                        .padding(.vertical, 5)
+                                }
                                 .padding(.horizontal, 5)
-                            //Arrival stop
-                        case currentTrip.route.count - 1:
-                            HStack {
-                                Text("\(route.location.name)")
-                                    .padding(.leading, 5)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .foregroundColor(index < currentStopIndex ? Color.gray : Color.primary)
-                                timeProperties(for: route.arrival)
-                                    .padding(.trailing, 5)
-                                    .frame(maxWidth: .infinity, alignment: .trailing)
-                                    .foregroundColor(index < currentStopIndex ? Color.gray : Color.primary)
-                            }
-                            .padding(.horizontal, 5)
-                            .frame(maxWidth: .infinity)
-                            Divider()
+                                .frame(maxWidth: .infinity)
+                                
+                            case currentTrip.route.count - 1:
+                                VStack(spacing: 0) {
+                                    HStack(alignment: .top) {
+                                        Text("\(route.location.name)")
+                                            .padding(.leading, 5)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .fixedSize(horizontal: false, vertical: true) // Allow vertical growth
+                                            .lineLimit(nil) // Allow multiple lines
+                                            .foregroundColor(index < currentStopIndex ? Color.gray : Color.primary)
+                                        
+                                        timeProperties(for: route.arrival)
+                                            .padding(.trailing, 5)
+                                            .frame(maxWidth: .infinity, alignment: .trailing)
+                                            .foregroundColor(index < currentStopIndex ? Color.gray : Color.primary)
+                                    }
+                                    .padding(.horizontal, 5)
+                                }
                                 .padding(.horizontal, 5)
+                                .padding(.vertical, 5)
+                                .frame(maxWidth: .infinity)
+                                
                             //All the others
-                        default:
-                            HStack {
-                                Text("\(route.location.name)")
-                                    .padding(.leading, 5)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .foregroundColor(index < currentStopIndex ? Color.gray : Color.primary)
-                                timeProperties(for: route.arrival)
-                                    .padding(.trailing, 5)
-                                    .frame(maxWidth: .infinity, alignment: .trailing)
-                                    .foregroundColor(index < currentStopIndex ? Color.gray : Color.primary)
-                            }
-                            .padding(.horizontal, 5)
-                            .frame(maxWidth: .infinity)
-                            Divider()
+                            default:
+                                VStack(spacing: 0) {
+                                    HStack(alignment: .top) {
+                                        Text("\(route.location.name)")
+                                            .padding(.leading, 5)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .fixedSize(horizontal: false, vertical: true) // Allow vertical growth
+                                            .lineLimit(nil) // Allow multiple lines
+                                            .foregroundColor(index < currentStopIndex ? Color.gray : Color.primary)
+                                        
+                                        timeProperties(for: route.arrival)
+                                            .padding(.trailing, 5)
+                                            .frame(maxWidth: .infinity, alignment: .trailing)
+                                            .foregroundColor(index < currentStopIndex ? Color.gray : Color.primary)
+                                    }
+                                    .padding(.horizontal, 5)
+                                    
+                                    Divider()
+                                        .padding(.horizontal, 5)
+                                        .padding(.vertical, 5)
+                                }
                                 .padding(.horizontal, 5)
+                                .padding(.vertical, 5)
+                                .frame(maxWidth: .infinity)
                         }
+
+
                     }
                     .frame(maxWidth: .infinity)
                 }
@@ -315,7 +341,7 @@ struct CurrentTripView: View {
                     let timeDifference = estimatedDate.timeIntervalSince(scheduledDate)
                     let minutesDifference = Int(timeDifference / 60)
                     
-                    VStack {
+                    VStack(alignment: .leading) {
                         if minutesDifference < 0 {
                             Text("Scheduled: \(scheduledTimeString)")
                             Text("Estimated: \(estimatedTimeString)")

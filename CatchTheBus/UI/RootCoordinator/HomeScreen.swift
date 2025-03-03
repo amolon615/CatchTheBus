@@ -33,7 +33,7 @@ final class UIRootCoordinatorViewModel: ObservableObject {
     }
 }
 
-enum RootViewState {
+enum RootViewState: Equatable {
     case allTrips
     case trackedTrip(String)
     var title: String {
@@ -59,8 +59,10 @@ struct HomeScreen: View {
                     tripsFeed
                 case .trackedTrip(let tripUID):
                     trackedTripView(tripUID: tripUID)
+                        .transition(.move(edge: .bottom))
                 }
             }
+            .animation(.linear, value: viewModel.state)
         }
     }
     
