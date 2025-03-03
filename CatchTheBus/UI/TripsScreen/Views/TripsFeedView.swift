@@ -73,20 +73,33 @@ struct TripsFeedView<ViewModel: TripsFeedViewModel>: View {
     }
     
     private var sortedTrips: [AppQuote] {
-        switch sortOption {
-        case .departureTime:
-            return viewModel.trips.sorted { trip1, trip2 in
-                guard let leg1 = trip1.legs.first, let leg2 = trip2.legs.first,
-                      let date1 = ISO8601DateFormatter().date(from: leg1.departure.scheduled),
+        let now = Date()
+        
+        return viewModel.trips.sorted { trip1, trip2 in
+            guard let leg1 = trip1.legs.first, let leg2 = trip2.legs.first else {
+                return false
+            }
+            
+            // First check if either trip is expired
+            let trip1Expired = isExpired(leg: leg1)
+            let trip2Expired = isExpired(leg: leg2)
+            
+            // Non-expired trips should always come before expired trips
+            if !trip1Expired && trip2Expired {
+                return true
+            } else if trip1Expired && !trip2Expired {
+                return false
+            }
+            
+            // If both are expired or both are not expired, sort by the selected option
+            if sortOption == .departureTime {
+                guard let date1 = ISO8601DateFormatter().date(from: leg1.departure.scheduled),
                       let date2 = ISO8601DateFormatter().date(from: leg2.departure.scheduled) else {
                     return false
                 }
                 return date1 < date2
-            }
-        case .arrivalTime:
-            return viewModel.trips.sorted { trip1, trip2 in
-                guard let leg1 = trip1.legs.first, let leg2 = trip2.legs.first,
-                      let arrival1 = leg1.arrival, let arrival2 = leg2.arrival,
+            } else {
+                guard let arrival1 = leg1.arrival, let arrival2 = leg2.arrival,
                       let date1 = ISO8601DateFormatter().date(from: arrival1.scheduled),
                       let date2 = ISO8601DateFormatter().date(from: arrival2.scheduled) else {
                     return false
@@ -95,15 +108,57 @@ struct TripsFeedView<ViewModel: TripsFeedViewModel>: View {
             }
         }
     }
+
+
+    
+    private func isExpired(leg: AppLeg) -> Bool {
+        guard let arrival = leg.arrival,
+              let arrivalDate = ISO8601DateFormatter().date(from: arrival.scheduled) else {
+            return false
+        }
+        
+        let twoHoursAgo = Calendar.current.date(byAdding: .hour, value: -2, to: Date())!
+        return arrivalDate < twoHoursAgo
+    }
+
+
     
     private var tripsList: some View {
         List {
             ForEach(sortedTrips) { trip in
                 if let leg = trip.legs.first {
+                    let expired = isExpired(leg: leg)
+                    
                     TripRowView(leg: leg)
+                        .opacity(expired ? 0.6 : 1.0)
+                        .overlay(
+                            Group {
+                                if expired {
+                                    VStack {
+                                        Spacer()
+                                        HStack {
+                                            Spacer()
+                                            Text("EXPIRED")
+                                                .font(.caption)
+                                                .fontWeight(.bold)
+                                                .foregroundColor(.white)
+                                                .padding(.horizontal, 8)
+                                                .padding(.vertical, 4)
+                                                .background(Color.red.opacity(0.8))
+                                                .cornerRadius(4)
+                                            Spacer()
+                                        }
+                                        Spacer()
+                                    }
+                                }
+                            }
+                        )
                         .onTapGesture {
-                            selectedTripID(leg.tripUid)
+                            if !expired {
+                                selectedTripID(leg.tripUid)
+                            }
                         }
+                    
                     Divider()
                         .padding(.horizontal, 10)
                 }
