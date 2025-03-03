@@ -27,7 +27,7 @@ final class MockTripsFeedViewModel: TripsFeedViewModel {
             trips = []
         }
     }
-    func fetchTrips(from: Date, to: Date) async {}
+    func fetchTrips(from: Date, to: Date, context: DataLoadingContext = .initial) async {}
     
     private func loadTrips() async {}
 }

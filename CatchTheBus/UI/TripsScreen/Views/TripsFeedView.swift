@@ -12,7 +12,6 @@ struct TripsFeedView<ViewModel: TripsFeedViewModel>: View {
     @EnvironmentObject var tripsServer: AppTripsServer
     @StateObject var viewModel: ViewModel
     
-    // Sort options enum
     enum SortOption {
         case departureTime
         case arrivalTime
@@ -20,7 +19,6 @@ struct TripsFeedView<ViewModel: TripsFeedViewModel>: View {
     
     @State private var sortOption: SortOption = .departureTime
     
-    // Always use today's date range
     private var todayStart: Date {
         Calendar.current.startOfDay(for: Date())
     }
@@ -43,7 +41,7 @@ struct TripsFeedView<ViewModel: TripsFeedViewModel>: View {
                     } actions: {
                         Button("Refresh") {
                             Task {
-                                await viewModel.fetchTrips(from: todayStart, to: todayEnd)
+                                await viewModel.fetchTrips(from: todayStart, to: todayEnd, context: .pullToRefresh)
                             }
                         }
                     }
@@ -58,17 +56,17 @@ struct TripsFeedView<ViewModel: TripsFeedViewModel>: View {
                     } actions: {
                         Button("Try Again") {
                             Task {
-                                await viewModel.fetchTrips(from: todayStart, to: todayEnd)
+                                await viewModel.fetchTrips(from: todayStart, to: todayEnd, context: .pullToRefresh)
                             }
                         }
                     }
                 }
             }
             .task {
-                await viewModel.fetchTrips(from: todayStart, to: todayEnd)
+                await viewModel.fetchTrips(from: todayStart, to: todayEnd, context: .initial) 
             }
             .refreshable {
-                await viewModel.fetchTrips(from: todayStart, to: todayEnd)
+                await viewModel.fetchTrips(from: todayStart, to: todayEnd, context: .pullToRefresh)
             }
         }
         .navigationTitle("All trips for today.")
